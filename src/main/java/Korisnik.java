@@ -8,9 +8,11 @@ public class Korisnik {
     private boolean edit;
     private boolean delete;
 
+
     public Korisnik(String username, String password){
         this.username = username;
         this.password = password;
+
     }
     public boolean checkAdmin(){
         if(read && write && delete && edit){
