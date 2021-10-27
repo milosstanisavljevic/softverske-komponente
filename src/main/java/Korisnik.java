@@ -9,9 +9,20 @@ public class Korisnik {
     private boolean delete;
 
 
+
     public Korisnik(String username, String password){
         this.username = username;
         this.password = password;
+
+    }
+
+    public Korisnik(String username, String password, boolean edit, boolean write, boolean read, boolean delete){
+        this.username = username;
+        this.password = password;
+        this.edit = edit;
+        this.write = write;
+        this.read = read;
+        this.delete = delete;
 
     }
     public boolean checkAdmin(){
@@ -21,4 +32,5 @@ public class Korisnik {
         }else
             return false;
     }
+
 }
