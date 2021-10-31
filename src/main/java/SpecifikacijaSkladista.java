@@ -8,6 +8,7 @@ import java.util.*;
 public abstract class SpecifikacijaSkladista {
 
     private File configFile;
+    private Korisnik korisnik;
     private List<Korisnik>korisnici = new ArrayList<>();
 
     public abstract void createRoot(String path, String name);
@@ -69,6 +70,7 @@ public abstract class SpecifikacijaSkladista {
 
         try {
             makeUser(path, "user1", "user1", true, true, true, true);
+            korisnik.setUsername("user1");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -109,14 +111,24 @@ public abstract class SpecifikacijaSkladista {
             }
             reader.close();
 
-            makeConfig(path, size, filetype, maxNumber, admin);
+            if(isRightUser(admin)){
+                makeConfig(path, size, filetype, maxNumber, admin);
+            }else{
+                return;
+            }
+
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-
+    public boolean isRightUser(String username){
+        if (username.equalsIgnoreCase(korisnik.getUsername())){
+            return true;
+        }
+        return false;
+    }
 
 
 }
