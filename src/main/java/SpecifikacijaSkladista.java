@@ -3,19 +3,19 @@ import com.google.gson.Gson;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public abstract class SpecifikacijaSkladista {
 
     private File configFile;
-    private List<Korisnik>korisnici;
+    private List<Korisnik>korisnici = new ArrayList<>();
 
     public abstract void createRoot(String path, String name);
     public abstract void checkIfRootExists(String path);
     public abstract void checkPrivileges();
+    public abstract void createFile(String fileName);
+    public abstract void createFolder(String folderName);
+
 
     public void makeConfig(String path, Object size, Object filetype, Object maxNumber, Object admin) throws Exception {
         try {
@@ -37,7 +37,7 @@ public abstract class SpecifikacijaSkladista {
 
     }
 
-    public void makeDefaultConfig(String path){ //POZIVATI OVO U IMPLEMENTACIJI
+    public void makeDefaultConfig(String path){
 
         path = path + "\\" + "config.json";
         try {
@@ -49,12 +49,13 @@ public abstract class SpecifikacijaSkladista {
 
     public void makeUser(String path, String username, String password, boolean edit, boolean write, boolean read, boolean delete) throws Exception{
          try {
-
              Korisnik user = new Korisnik(username, password, edit, write, read, delete);
+             korisnici.add(user);
              //user.getUsername(), user.getPassword()
              Writer writer = new FileWriter(path);
-             new Gson().toJson(user, writer);
-
+             for (Korisnik k : korisnici) {
+                 new Gson().toJson(k, writer);
+             }
              writer.close();
 
          }catch (Exception e){
@@ -62,7 +63,7 @@ public abstract class SpecifikacijaSkladista {
          }
     }
 
-    public void makeDefaultUser(String path){ // POZIVATI OVO U IMPLEMENTACIJI
+    public void makeDefaultUser(String path){
 
         path = path + "\\" + "users.json";
 
@@ -74,7 +75,6 @@ public abstract class SpecifikacijaSkladista {
     }
 
     public void addUser(String path, String name, String password, int privilege) throws Exception{
-        //nije testirana
         try {
             if(privilege == 1){
                 path = path + "\\" + "users.json";
@@ -91,23 +91,23 @@ public abstract class SpecifikacijaSkladista {
         }
     }
 
+
     public void updateConfig(String path, Object size, Object filetype, Object maxNumber) throws Exception{
         try {
 
             String admin = "";
+            path = path + "\\" + "config.json";
 
             Gson gson = new Gson();
             Reader reader = Files.newBufferedReader(Paths.get(path));
             Map<String, Object> map = gson.fromJson(reader, Map.class);
 
             for (Map.Entry<String, Object> entry: map.entrySet()) {
-                if(entry.getKey() == "admin"){
-                    admin = entry.getValue().toString();
+                if(entry.getKey().equalsIgnoreCase("admin")){
+                    admin += entry.getValue().toString();
                 }
             }
             reader.close();
-
-            //izbrisati sve iz fajla
 
             makeConfig(path, size, filetype, maxNumber, admin);
 
