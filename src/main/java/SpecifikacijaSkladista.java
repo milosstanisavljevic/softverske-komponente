@@ -8,14 +8,18 @@ import java.util.*;
 public abstract class SpecifikacijaSkladista {
 
     private File configFile;
-    private Korisnik korisnik;
+    private Korisnik connectedUser;
     private List<Korisnik>korisnici = new ArrayList<>();
 
     public abstract void createRoot(String path, String name);
     public abstract void checkIfRootExists(String path);
     public abstract void checkPrivileges();
     public abstract void createFile(String fileName);
+    public abstract void createMoreFiles(int n);
+    public abstract void createMoreFolders(int n);
     public abstract void createFolder(String folderName);
+    public abstract void deleteFile(String name);
+    public abstract void deleteFolder(String name);
 
 
     public void makeConfig(String path, Object size, Object filetype, Object maxNumber, Object admin) throws Exception {
@@ -70,7 +74,7 @@ public abstract class SpecifikacijaSkladista {
 
         try {
             makeUser(path, "user1", "user1", true, true, true, true);
-            korisnik.setUsername("user1");
+            connectedUser.setUsername("user1");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -124,7 +128,7 @@ public abstract class SpecifikacijaSkladista {
     }
 
     public boolean isRightUser(String username){
-        if (username.equalsIgnoreCase(korisnik.getUsername())){
+        if (username.equalsIgnoreCase(connectedUser.getUsername())){
             return true;
         }
         return false;
