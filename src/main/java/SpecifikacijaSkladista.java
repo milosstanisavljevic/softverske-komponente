@@ -74,7 +74,6 @@ public abstract class SpecifikacijaSkladista {
 
         try {
             makeUser(path, username, password, true, true, true, true);
-            connectedUser.setUsername("user1");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,14 +100,10 @@ public abstract class SpecifikacijaSkladista {
     public void updateConfig(String path, Object size, Object filetype, Object maxNumber) throws Exception{
         try {
 
+            path = path + "\\" + "config.json";
             String admin = checkAdmin(path);
             makeConfig(path, size, filetype, maxNumber, admin);
-
-
-//            if(isRightUser(admin))
-//            }else{
-//                return;
-//            }
+            System.out.println(admin + " " + size + " " + filetype + " " + maxNumber + " " + path);
 
 
         }catch (Exception e){
@@ -119,7 +114,6 @@ public abstract class SpecifikacijaSkladista {
     public String checkAdmin(String path){
         try {
             String admin = "";
-            path = path + "\\" + "config.json";
 
             Gson gson = new Gson();
             Reader reader = Files.newBufferedReader(Paths.get(path));
