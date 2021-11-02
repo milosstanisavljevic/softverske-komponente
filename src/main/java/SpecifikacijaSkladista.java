@@ -11,8 +11,8 @@ public abstract class SpecifikacijaSkladista {
     private Korisnik connectedUser;
     private List<Korisnik>korisnici = new ArrayList<>();
 
-    public abstract void createRoot(String path, String name);
-    public abstract void checkIfRootExists(String path);
+    public abstract boolean createRoot(String path, String name);
+    public abstract boolean checkIfRootExists(String path, String name);
     public abstract void checkPrivileges();
     public abstract void createFile(String fileName);
     public abstract void createMoreFiles(int n);
