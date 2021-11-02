@@ -11,8 +11,8 @@ public abstract class SpecifikacijaSkladista {
     private Korisnik connectedUser;
     private List<Korisnik>korisnici = new ArrayList<>();
 
-    public abstract boolean createRoot(String path, String name);
-    public abstract boolean checkIfRootExists(String path, String name);
+    public abstract boolean createRoot(String path, String username, String password);
+    public abstract boolean checkIfRootExists(String path);
     public abstract void checkPrivileges();
     public abstract void createFile(String fileName);
     public abstract void createMoreFiles(int n);
@@ -42,11 +42,11 @@ public abstract class SpecifikacijaSkladista {
 
     }
 
-    public void makeDefaultConfig(String path){
+    public void makeDefaultConfig(String path, String username){
 
         path = path + "\\" + "config.json";
         try {
-            makeConfig(path, 1000000, ".txt", 10, "user1");
+            makeConfig(path, 1000000, ".txt", 10, username);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -68,12 +68,12 @@ public abstract class SpecifikacijaSkladista {
          }
     }
 
-    public void makeDefaultUser(String path){
+    public void makeDefaultUser(String path, String username, String password){
 
         path = path + "\\" + "users.json";
 
         try {
-            makeUser(path, "user1", "user1", true, true, true, true);
+            makeUser(path, username, password, true, true, true, true);
             connectedUser.setUsername("user1");
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,6 +101,23 @@ public abstract class SpecifikacijaSkladista {
     public void updateConfig(String path, Object size, Object filetype, Object maxNumber) throws Exception{
         try {
 
+            String admin = checkAdmin(path);
+            makeConfig(path, size, filetype, maxNumber, admin);
+
+
+//            if(isRightUser(admin))
+//            }else{
+//                return;
+//            }
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public String checkAdmin(String path){
+        try {
             String admin = "";
             path = path + "\\" + "config.json";
 
@@ -114,24 +131,42 @@ public abstract class SpecifikacijaSkladista {
                 }
             }
             reader.close();
-
-            if(isRightUser(admin)){
-                makeConfig(path, size, filetype, maxNumber, admin);
-            }else{
-                return;
-            }
-
-
+            return admin;
         }catch (Exception e){
             e.printStackTrace();
+            return null;
         }
     }
 
-    public boolean isRightUser(String username){
-        if (username.equalsIgnoreCase(connectedUser.getUsername())){
-            return true;
+    public boolean checkUser(String path, String username1, String password1){
+        try {
+            String username2 = "";
+            String password2 = "";
+            path = path + "\\" + "users.json";
+
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get(path));
+            Map<String, Object> map = gson.fromJson(reader, Map.class);
+
+            for (Map.Entry<String, Object> entry: map.entrySet()) {
+                if(entry.getKey().equalsIgnoreCase("username")){
+                    username2 += entry.getValue().toString();
+                }
+                if(entry.getKey().equalsIgnoreCase("password")){
+                    password2+= entry.getValue().toString();
+                }
+            }
+            reader.close();
+
+            if(password1.equalsIgnoreCase(password2) && username1.equalsIgnoreCase(username2)) {
+                return true;
+            }else{
+                return false;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
         }
-        return false;
     }
 
 
