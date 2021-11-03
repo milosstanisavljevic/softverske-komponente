@@ -13,16 +13,16 @@ public abstract class SpecifikacijaSkladista {
 
     public abstract boolean createRoot(String path, String username, String password);
     public abstract boolean checkIfRootExists(String path);
-    public abstract void checkPrivileges();
+   // public abstract void checkPrivileges();
     public abstract void createFile(String fileName);
     public abstract void createMoreFiles(int n);
     public abstract void createMoreFolders(int n);
     public abstract void createFolder(String folderName);
     public abstract void deleteFile(String name);
     public abstract void deleteFolder(String name);
+    public abstract void loadUsers();
 
-
-    public void makeConfig(String path, Object size, Object filetype, Object maxNumber, Object admin) throws Exception {
+    public void makeConfig(String path, Object size, String filetype, int maxNumber, String admin) throws Exception {
         try {
 
             Map<String, Object> map = new HashMap<>();
@@ -30,7 +30,7 @@ public abstract class SpecifikacijaSkladista {
             map.put("file type", filetype);
             map.put("max number of files", maxNumber);
             map.put("admin", admin);
-
+            //loc
             Writer writer = new FileWriter(path);
             new Gson().toJson(map, writer);
 
@@ -97,7 +97,7 @@ public abstract class SpecifikacijaSkladista {
     }
 
 
-    public void updateConfig(String path, Object size, Object filetype, Object maxNumber) throws Exception{
+    public void updateConfig(String path, int size, String filetype, int maxNumber) throws Exception{
         try {
 
             path = path + "\\" + "config.json";
