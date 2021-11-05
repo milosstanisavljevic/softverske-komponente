@@ -9,7 +9,7 @@ public abstract class SpecifikacijaSkladista {
 
     private File configFile;
     private Korisnik connectedUser;
-    private List<Korisnik>korisnici = new ArrayList<>();
+    private List<Korisnik>korisnici;
 
     public abstract boolean createRoot(String path, String username, String password);
     public abstract boolean checkIfRootExists(String path);
@@ -38,6 +38,7 @@ public abstract class SpecifikacijaSkladista {
     public abstract void updateConfig(String path, int size, String filetype, int maxNumber);
 
     public List<Korisnik> loadUsers(String username, String password, boolean edit, boolean write, boolean read, boolean delete){
+        korisnici = new ArrayList<>();
         Korisnik user = new Korisnik(username, password, edit, write, read, delete);
         korisnici.add(user);
         return korisnici;
@@ -47,7 +48,7 @@ public abstract class SpecifikacijaSkladista {
 
     public abstract void makeDefaultUser(String path, String username, String password);
 
-    public abstract void addUser(String path, String name, String password, int privilege);
+    public abstract void addUser(String path, String name, String password, String privilege);
 
     public abstract String checkAdmin(String path);
 
