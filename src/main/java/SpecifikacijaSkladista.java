@@ -14,18 +14,18 @@ public abstract class SpecifikacijaSkladista {
     public abstract boolean createRoot(String path, String username, String password);
     public abstract boolean checkIfRootExists(String path);
    // public abstract void checkPrivileges();
-    public abstract void createFile(String fileName);
-    public abstract void createMoreFiles(int n);
-    public abstract void createMoreFolders(int n);
-    public abstract void createFolder(String folderName);
-    public abstract void deleteFile(String name);
-    public abstract void deleteFolder(String name);
+    public abstract void createFile(String path, String fileName);
+    public abstract void createMoreFiles(String path, int n);
+    public abstract void createMoreFolders(String path, int n);
+    public abstract void createFolder(String path, String folderName);
+    public abstract void deleteFile(String path, String name);
+    public abstract void deleteFolder(String path, String name);
 
     public Map<String, Object> mapConfig(Object size,String filetype, int maxNumber, String admin ){
         Map<String, Object> map = new HashMap<>();
-        map.put("size of root directory", size);
-        map.put("file type", filetype);
-        map.put("max number of files", maxNumber);
+        map.put("sizeOfDir", size);
+        map.put("fileType", filetype);
+        map.put("maxNumber", maxNumber);
         map.put("admin", admin);
 
         return map;
@@ -51,6 +51,7 @@ public abstract class SpecifikacijaSkladista {
     public abstract void addUser(String path, String name, String password, String privilege);
 
     public abstract String checkAdmin(String path);
+    public abstract Object checkConfigType(String path, String key);
 
     public abstract boolean checkUser(String path, String username1, String password1);
 
