@@ -37,6 +37,26 @@ public class Korisnik {
         return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public boolean isDelete() {
+        return delete;
+    }
+
+    public boolean isEdit() {
+        return edit;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public boolean isWrite() {
+        return write;
+    }
+
     public void setUsername(String username) {
         this.username = username;
     }

@@ -10,12 +10,14 @@ public abstract class SpecifikacijaSkladista {
     private File configFile;
     private Korisnik connectedUser;
     private List<Korisnik>korisnici = new ArrayList<>();
+    private int files = 0;
+    private int memory = 0;
 
     public abstract boolean createRoot(String path, String username, String password);
     public abstract boolean checkIfRootExists(String path);
    // public abstract void checkPrivileges();
     public abstract void createFile(String path, String fileName);
-    public abstract void createMoreFiles(String path, int n);
+    public abstract void createMoreFiles(String path, int n, String filetype);
     public abstract void createMoreFolders(String path, int n);
     public abstract void createFolder(String path, String folderName);
     public abstract void deleteFile(String path, String name);
@@ -55,5 +57,15 @@ public abstract class SpecifikacijaSkladista {
 
     public abstract boolean checkUser(String path, String username1, String password1);
 
+    public void setFiles(int files) {
+        this.files = files;
+    }
 
+    public void setMemory(int memory) {
+        this.memory = memory;
+    }
+
+    public List<Korisnik> getKorisnici() {
+        return korisnici;
+    }
 }
