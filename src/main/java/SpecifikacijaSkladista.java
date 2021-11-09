@@ -23,6 +23,7 @@ public abstract class SpecifikacijaSkladista {
     public abstract void deleteFile(String path, String name);
     public abstract void deleteFolder(String path, String name);
     public abstract void moveFromTo(String fromFolder, String toFolder, String file);
+    public abstract void downloadFile(String s);
 
     public Map<String, Object> mapConfig(Object size,String filetype, int maxNumber, String admin ){
         Map<String, Object> map = new HashMap<>();
