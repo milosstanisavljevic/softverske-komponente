@@ -27,6 +27,15 @@ public abstract class SpecifikacijaSkladista {
     public abstract void copyPasteFiles(String fromFolder, String toFolder, String filename);
     public abstract int countFiles();
 
+    public String[] listFiles(String path) {
+
+        String[] files;
+        File file = new File(path);
+        files = file.list();
+
+        return files;
+    }
+
     public Map<String, Object> mapConfig(Object size,String filetype, int maxNumber, String admin ){
         Map<String, Object> map = new HashMap<>();
         map.put("sizeOfDir", size);
