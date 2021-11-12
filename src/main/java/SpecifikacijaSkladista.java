@@ -17,8 +17,16 @@ public abstract class SpecifikacijaSkladista {
     public abstract boolean checkIfRootExists(String path);
    // public abstract void checkPrivileges();
     public abstract void createFile(String path, String fileName);
-    public abstract void createMoreFiles(String path, int n, String filetype);
-    public abstract void createMoreFolders(String path, int n);
+    public void createMoreFiles(String path, int n, String filetype){
+        for (int i = 0; i < n; i++) {
+            createFile(path, "myFile" + i + filetype);
+        }
+    }
+    public void createMoreFolders(String path, int n){
+        for (int i = 0; i < n; i++) {
+            createFolder(path, "Folder" + i);
+        }
+    }
     public abstract void createFolder(String path, String folderName);
     public abstract void deleteFile(String path, String name);
     public abstract void deleteFolder(String path, String name);
