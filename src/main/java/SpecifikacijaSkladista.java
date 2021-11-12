@@ -67,6 +67,10 @@ public abstract class SpecifikacijaSkladista {
         return korisnici;
     }
 
+    public void loadUsers(Korisnik k){
+        korisnici.add(k);
+    }
+
     public abstract void makeUser(String path, List<Korisnik> korisnici);
 
     public abstract void makeDefaultUser(String path, String username, String password);
@@ -88,5 +92,9 @@ public abstract class SpecifikacijaSkladista {
 
     public List<Korisnik> getKorisnici() {
         return korisnici;
+    }
+
+    public void setKorisnici(List<Korisnik> korisnici) {
+        this.korisnici = korisnici;
     }
 }
