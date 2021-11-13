@@ -1,6 +1,9 @@
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -67,8 +70,27 @@ public abstract class SpecifikacijaSkladista {
         return korisnici;
     }
 
-    public void loadUsers(Korisnik k){
-        korisnici.add(k);
+    public void loadUsers(String path) throws Exception{
+        path = path + "\\" + "users.json";
+        Type type = new TypeToken<Korisnik[]>() {}.getType();
+        Gson gson = new Gson();
+        JsonReader reader = new JsonReader(new FileReader(path));
+        Korisnik[] data = gson.fromJson(reader,type);
+        for(Korisnik k : data){
+            korisnici.add(k);
+        }
+        System.out.println(korisnici);
+//        try {
+//            String username2 = "";
+//            boolean s1 = false;
+//            String password2 = "";
+//            boolean s2 = false;
+//
+//            setRootDirectoryPath(path);
+//            path = path + "\\" + "users.json";
+//            Gson gson = new Gson();
+//            JsonReader reader = new JsonReader(new FileReader(path));
+//            Korisnik[] data = gson.fromJson(reader, type);
     }
 
     public abstract void makeUser(String path, List<Korisnik> korisnici);

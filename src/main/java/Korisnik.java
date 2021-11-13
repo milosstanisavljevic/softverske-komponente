@@ -15,7 +15,9 @@ public class Korisnik {
         this.password = password;
 
     }
+    public Korisnik(){
 
+    }
     public Korisnik(String username, String password, boolean edit, boolean write, boolean read, boolean delete){
         this.username = username;
         this.password = password;
