@@ -11,14 +11,13 @@ import java.util.*;
 public abstract class SpecifikacijaSkladista {
 
     private File configFile;
-    private Korisnik connectedUser;
     private List<Korisnik>korisnici = new ArrayList<>();
     private int files = 0;
     private int memory = 0;
 
     public abstract boolean createRoot(String path, String username, String password);
     public abstract boolean checkIfRootExists(String path);
-   // public abstract void checkPrivileges();
+    public abstract boolean checkPrivileges(String privilege);
     public abstract void createFile(String path, String fileName);
     public void createMoreFiles(String path, int n, String filetype){
         for (int i = 0; i < n; i++) {
@@ -61,7 +60,7 @@ public abstract class SpecifikacijaSkladista {
 
     public abstract void makeDefaultConfig(String path, String username);
 
-    public abstract void updateConfig(String path, int size, String filetype, int maxNumber);
+    public abstract boolean updateConfig(String path, int size, String filetype, int maxNumber);
 
     public List<Korisnik> loadUsers(String username, String password, boolean edit, boolean write, boolean read, boolean delete){
         //korisnici = new ArrayList<>();
@@ -78,6 +77,7 @@ public abstract class SpecifikacijaSkladista {
         Korisnik[] data = gson.fromJson(reader,type);
         for(Korisnik k : data){
             korisnici.add(k);
+            System.out.println(k.getUsername());
         }
         System.out.println(korisnici);
 //        try {
@@ -97,7 +97,7 @@ public abstract class SpecifikacijaSkladista {
 
     public abstract void makeDefaultUser(String path, String username, String password);
 
-    public abstract void addUser(String path, String name, String password, String privilege);
+    public abstract boolean addUser(String path, String name, String password, String privilege);
 
     public abstract String checkAdmin(String path);
     public abstract Object checkConfigType(String path, String key);
