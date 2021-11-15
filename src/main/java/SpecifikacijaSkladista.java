@@ -18,23 +18,25 @@ public abstract class SpecifikacijaSkladista {
     public abstract boolean createRoot(String path, String username, String password);
     public abstract boolean checkIfRootExists(String path);
     public abstract boolean checkPrivileges(String privilege);
-    public abstract void createFile(String path, String fileName);
+    public abstract boolean createFile(String path, String fileName);
+
     public void createMoreFiles(String path, int n, String filetype){
         for (int i = 0; i < n; i++) {
             createFile(path, "myFile" + i + filetype);
         }
     }
+
     public void createMoreFolders(String path, int n){
         for (int i = 0; i < n; i++) {
             createFolder(path, "Folder" + i);
         }
     }
-    public abstract void createFolder(String path, String folderName);
-    public abstract void deleteFile(String path, String name);
-    public abstract void deleteFolder(String path, String name);
-    public abstract void moveFromTo(String fromFolder, String toFolder, String file);
-    public abstract void downloadFile(String path, String filename);
-    public abstract void copyPasteFiles(String fromFolder, String toFolder, String filename);
+    public abstract boolean createFolder(String path, String folderName);
+    public abstract boolean deleteFile(String path, String name);
+    public abstract boolean deleteFolder(String path, String name);
+    public abstract boolean moveFromTo(String fromFolder, String toFolder, String file);
+    public abstract boolean downloadFile(String path, String filename);
+    public abstract boolean copyPasteFiles(String fromFolder, String toFolder, String filename);
     public abstract int countFiles();
 
     public String[] listFiles(String path) {
