@@ -14,6 +14,8 @@ public abstract class SpecifikacijaSkladista {
     private List<Korisnik>korisnici = new ArrayList<>();
     private int files = 0;
     private int memory = 0;
+    private int brojac = 0;
+    private int br = 0;
 
     public abstract boolean createRoot(String path, String username, String password);
     public abstract boolean checkIfRootExists(String path);
@@ -22,13 +24,13 @@ public abstract class SpecifikacijaSkladista {
 
     public void createMoreFiles(String path, int n, String filetype){
         for (int i = 0; i < n; i++) {
-            createFile(path, "myFile" + i + filetype);
+            createFile(path, "myFile" + br++ + filetype);
         }
     }
 
     public void createMoreFolders(String path, int n){
         for (int i = 0; i < n; i++) {
-            createFolder(path, "Folder" + i);
+            createFolder(path, "Folder" + brojac++);
         }
     }
     public abstract boolean createFolder(String path, String folderName);
