@@ -40,6 +40,7 @@ public abstract class SpecifikacijaSkladista {
     public abstract boolean downloadFile(String path, String filename);
     public abstract boolean copyPasteFiles(String fromFolder, String toFolder, String filename);
     public abstract int countFiles();
+    public abstract long countFilesMemory();
 
     public String[] listFiles(String path) {
 
