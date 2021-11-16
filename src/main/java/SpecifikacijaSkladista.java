@@ -20,6 +20,7 @@ public abstract class SpecifikacijaSkladista {
     public abstract boolean createRoot(String path, String name, String username, String password);
     public abstract boolean checkIfRootExists(String path);
     public abstract boolean createFile(String path, String fileName);
+    public abstract String getPath();
 
     public void createMoreFiles(String path, int n, String filetype){
         for (int i = 0; i < n; i++) {
