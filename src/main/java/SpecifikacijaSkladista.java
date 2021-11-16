@@ -17,9 +17,8 @@ public abstract class SpecifikacijaSkladista {
     private int brojac = 0;
     private int br = 0;
 
-    public abstract boolean createRoot(String path, String username, String password);
+    public abstract boolean createRoot(String path, String name, String username, String password);
     public abstract boolean checkIfRootExists(String path);
-    public abstract boolean checkPrivileges(String privilege);
     public abstract boolean createFile(String path, String fileName);
 
     public void createMoreFiles(String path, int n, String filetype){
@@ -68,7 +67,6 @@ public abstract class SpecifikacijaSkladista {
     public abstract boolean updateConfig(String path, int size, String filetype, int maxNumber);
 
     public List<Korisnik> loadUsers(String username, String password, boolean edit, boolean write, boolean read, boolean delete){
-        //korisnici = new ArrayList<>();
         Korisnik user = new Korisnik(username, password, edit, write, read, delete);
         korisnici.add(user);
         return korisnici;
@@ -98,14 +96,95 @@ public abstract class SpecifikacijaSkladista {
 //            Korisnik[] data = gson.fromJson(reader, type);
     }
 
+    public boolean checkPrivileges(String privilege, String path, String connectedUser) {
+
+        try {
+            path = path + "\\" + "users.json";
+            Type type = new TypeToken<Korisnik[]>() {
+            }.getType();
+            Gson gson = new Gson();
+            JsonReader reader = new JsonReader(new FileReader(path));
+            Korisnik[] data = gson.fromJson(reader, type);
+
+            for (Korisnik k : data) {
+                if(k.getUsername().equalsIgnoreCase(connectedUser)) {
+                    switch (privilege) {
+
+                        case ("read"):
+                            System.out.println(k.isRead());
+                            return k.isRead();
+
+                        case ("write"):
+                            System.out.println(k.isWrite());
+                            return k.isWrite();
+
+                        case ("delete"):
+                            System.out.println(k.isDelete());
+                            return k.isDelete();
+
+                        case ("edit"):
+                            System.out.println(k.isEdit());
+                            return k.isEdit();
+
+                    }
+                }
+            }
+            return false;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public Object checkConfigType(String path, String key) {
+        try {
+            Object value = null;
+            path = path + "\\config.json";
+
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get(path));
+            Map<String, Object> map = gson.fromJson(reader, Map.class);
+
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (entry.getKey().equalsIgnoreCase(key)) {
+                    value = entry.getValue();
+                }
+            }
+            reader.close();
+            return value;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public String checkAdmin(String path) {
+        try {
+            String admin = "";
+
+            Gson gson = new Gson();
+            Reader reader = Files.newBufferedReader(Paths.get(path));
+            Map<String, Object> map = gson.fromJson(reader, Map.class);
+
+            for (Map.Entry<String, Object> entry : map.entrySet()) {
+                if (entry.getKey().equalsIgnoreCase("admin")) {
+                    admin += entry.getValue().toString();
+                }
+            }
+            reader.close();
+            return admin;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public abstract void makeUser(String path, List<Korisnik> korisnici);
 
     public abstract void makeDefaultUser(String path, String username, String password);
 
     public abstract boolean addUser(String path, String name, String password, String privilege);
-
-    public abstract String checkAdmin(String path);
-    public abstract Object checkConfigType(String path, String key);
 
     public abstract boolean checkUser(String path, String username1, String password1);
 
