@@ -18,7 +18,7 @@ public abstract class SpecifikacijaSkladista {
     private int br = 0;
 
     public abstract boolean createRoot(String path, String name, String username, String password);
-    public abstract boolean checkIfRootExists(String path);
+    public abstract boolean checkIfRootExists(String path, String name);
     public abstract boolean createFile(String path, String fileName);
     public abstract String getPath();
 
