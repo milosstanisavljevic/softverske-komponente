@@ -32,7 +32,7 @@ public abstract class SpecifikacijaSkladista {
      * @param path - putanja ka skladistu
      * @return true ako skladsite postoji
      */
-    public abstract boolean checkIfRootExists(String path);
+    public abstract boolean checkIfRootExists(String path, String name);
 
     /**
      * kreira fajl na zadatoj putanji
