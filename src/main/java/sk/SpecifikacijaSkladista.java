@@ -1,3 +1,5 @@
+package sk;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -220,7 +222,7 @@ public abstract class SpecifikacijaSkladista {
 //            path = path + "\\" + "users.json";
 //            Gson gson = new Gson();
 //            JsonReader reader = new JsonReader(new FileReader(path));
-//            Korisnik[] data = gson.fromJson(reader, type);
+//            sk.Korisnik[] data = gson.fromJson(reader, type);
     }
 
     /**

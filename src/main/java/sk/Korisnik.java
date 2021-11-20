@@ -1,3 +1,5 @@
+package sk;
+
 public class Korisnik {
 
     private String username;

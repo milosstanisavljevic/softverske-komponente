@@ -1,3 +1,7 @@
+package sk;
+
+import sk.SpecifikacijaSkladista;
+
 public class Manager {
 
     private static SpecifikacijaSkladista specifikacijaSkladista;
